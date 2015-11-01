@@ -32,4 +32,4 @@ node_modules
 .idea
 example-angular-route.zz.iml
 
-
+app/bower_components
