@@ -1,23 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru" ng-app="myApp">
 <head>
-  <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>HTML5 роутинг в AngularJS</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    var config = {};
+
+    (function(){
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", "config.json", true);
+      xmlHttp.onload = function(){
+        if (xmlHttp.readyState === 4){
+          if (xmlHttp.status >= 200 && xmlHttp.status < 400) {
+            success(xmlHttp.responseText)
+          }
+        }
+      };
+      xmlHttp.send(null);
+    })();
+
+    function success(datas){
+      config = JSON.parse(datas);
+      createBase(config.BASE);
+    }
+
+    function createBase(baseUrl) {
+      var base = document.createElement('base');
+      base.href = baseUrl;
+      document.head.appendChild(base);
+
+      loadDoc([
+        "bower_components/angular/angular.js",
+        "bower_components/angular-route/angular-route.js",
+        "app.js"
+      ])
+    }
+
+    function loadDoc(urls){
+      urls.forEach(function(url) {
+        var script=document.createElement('script');
+        script.src = url;
+        document.body.appendChild(script);
+      });
+    }
+
+  </script>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="view1">view1</a></li>
-    <li><a href="view2">view2</a></li>
-  </ul>
+<ul class="menu">
+  <li><a href="view1">view1</a></li>
+  <li><a href="view2">view2</a></li>
+</ul>
 
-  <div ng-view></div>
-
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
+<div ng-view></div>
 </body>
 </html>
