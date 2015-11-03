@@ -5,10 +5,10 @@ angular.module('myApp', ['ngRoute']).config(function($routeProvider, $locationPr
     $locationProvider.html5Mode(true);
 
     $routeProvider.when('/view1', {
-        templateUrl: '/app/view1/view1.html'
+        templateUrl: '/view1/view1.html'
     });
     $routeProvider.when('/view2', {
-        templateUrl: '/app/view2/view2.html'
+        templateUrl: '/view2/view2.html'
     });
 
     $routeProvider.otherwise({redirectTo: '/view1'});
